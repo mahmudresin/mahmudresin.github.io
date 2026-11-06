@@ -114,7 +114,8 @@ export const education = [
     id: "bracu",
     institution: "BRAC University",
     degree: "M.Sc. in Computer Science and Engineering",
-    period: "2025 – Present",
+    period: "2026 – Present",
+    specialization: "Cyber Security and Digital Forensics",
     result: null,
   },
   {

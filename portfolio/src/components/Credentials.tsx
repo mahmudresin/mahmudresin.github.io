@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { education, achievements, certifications } from "../data";
-import { Award, GraduationCap, CheckCircle2, ShieldCheck } from "lucide-react";
+import { education, achievements, certifications, researchInterests } from "../data";
 
 export function Credentials() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -9,129 +8,131 @@ export function Credentials() {
 
   return (
     <section
+      id="research"
       ref={containerRef}
-      className="relative py-28 md:py-36 px-6 md:px-16 bg-neutral-950 text-white border-t border-white/10 overflow-hidden"
+      className="relative py-24 md:py-36 px-6 md:px-12 bg-neutral-950 text-white border-b border-white/[0.08]"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex items-center gap-6 mb-16 md:mb-20">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-400">
-            05 // EDUCATION & CREDENTIALS
+        <div className="flex items-baseline justify-between pb-8 mb-16 border-b border-white/[0.08]">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-neutral-400">
+            05 / ACADEMIC LEDGER & RESEARCH VECTORS
           </span>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 h-px bg-white/20 origin-left"
-          />
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-400">
+            FORMAL QUALIFICATIONS & THEORETICAL INQUIRY
+          </span>
         </div>
 
-        {/* Education Section */}
-        <div className="mb-20">
-          <div className="flex items-center gap-3 mb-8">
-            <GraduationCap size={18} className="text-white" />
-            <h3 className="font-serif text-2xl font-light text-white">Academic Qualifications</h3>
-          </div>
+        {/* Academic Ledger: 2 Columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-20 border-b border-white/[0.08]">
+          {/* Left Column: Formal Degrees (6 cols) */}
+          <div className="lg:col-span-6 space-y-8">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-neutral-400 block pb-2 border-b border-white/10">
+              ACADEMIC DEGREES
+            </span>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {education.map((edu, i) => (
-              <motion.div
-                key={edu.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="border-t-2 border-white bg-neutral-900/30 p-8 backdrop-blur-sm border-x border-b border-white/10 hover:border-white/30 transition-all duration-300 group"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <span className="font-mono text-xs text-neutral-400 tracking-widest uppercase">
-                    {edu.period}
-                  </span>
-                  <span className="font-mono text-xs text-neutral-600">0{i + 1}</span>
-                </div>
-                <h4 className="font-serif text-2xl font-light text-white mb-2 group-hover:text-neutral-200 transition-colors">
-                  {edu.institution}
-                </h4>
-                <p className="text-sm font-sans text-neutral-300 mb-4">{edu.degree}</p>
-                {edu.result && (
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-xs font-mono text-white">
-                    <CheckCircle2 size={12} />
-                    <span>{edu.result}</span>
+            <div className="space-y-8">
+              {education.map((edu, i) => (
+                <div key={edu.id} className="space-y-1">
+                  <div className="flex justify-between items-baseline text-xs font-mono text-neutral-400">
+                    <span>{edu.period}</span>
+                    <span>0{i + 1}</span>
                   </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Achievements & Certifications Two-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Column 1: Honors & Achievements */}
-          <div>
-            <div className="flex items-center gap-3 mb-8">
-              <Award size={18} className="text-white" />
-              <h3 className="font-serif text-2xl font-light text-white">Honors & Competitions</h3>
+                  <h4 className="font-serif text-2xl font-light text-white">
+                    {edu.institution}
+                  </h4>
+                  <p className="text-sm font-sans text-neutral-300">
+                    {edu.degree}
+                  </p>
+                  {edu.specialization && (
+                    <p className="text-xs font-mono text-neutral-400">
+                      Focus: {edu.specialization}
+                    </p>
+                  )}
+                  {edu.result && (
+                    <span className="inline-block mt-2 font-mono text-xs px-2.5 py-0.5 border border-white/20 text-neutral-200">
+                      {edu.result}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
+          </div>
 
-            <div className="space-y-4">
+          {/* Right Column: Honors & Certifications (6 cols) */}
+          <div className="lg:col-span-6 space-y-8">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-neutral-400 block pb-2 border-b border-white/10">
+              HONORS & VERIFIED CREDENTIALS
+            </span>
+
+            <div className="space-y-6">
+              {/* Honors */}
               {achievements.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ duration: 0.7, delay: 0.3 + i * 0.1 }}
-                  className="border border-white/10 bg-neutral-900/20 p-5 flex items-start gap-4 hover:border-white/30 transition-colors group"
-                >
-                  <span className="font-mono text-xs text-neutral-500 mt-1">
-                    0{i + 1}
-                  </span>
+                <div key={i} className="flex justify-between items-baseline border-b border-white/[0.06] pb-3">
                   <div>
-                    <h5 className="font-serif text-lg font-light text-white mb-1 group-hover:text-neutral-100 transition-colors">
+                    <h5 className="font-serif text-lg font-light text-white">
                       {item.title}
                     </h5>
-                    <p className="text-xs font-mono text-neutral-400">{item.detail}</p>
+                    <p className="text-xs font-mono text-neutral-400 mt-0.5">
+                      {item.detail}
+                    </p>
                   </div>
-                </motion.div>
+                  <span className="font-mono text-[10px] tracking-widest text-neutral-400 uppercase">
+                    HONOR
+                  </span>
+                </div>
+              ))}
+
+              {/* Certifications */}
+              {certifications.map((cert, i) => (
+                <div key={i} className="flex justify-between items-baseline border-b border-white/[0.06] pb-3">
+                  <div>
+                    <h5 className="font-serif text-base font-light text-neutral-200">
+                      {cert.title}
+                    </h5>
+                    <p className="text-xs font-mono text-neutral-400 mt-0.5">
+                      {cert.issuer}
+                    </p>
+                  </div>
+                  <span className="font-mono text-[10px] tracking-widest text-neutral-400 uppercase">
+                    VERIFIED
+                  </span>
+                </div>
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Column 2: Professional Certifications */}
-          <div>
-            <div className="flex items-center gap-3 mb-8">
-              <ShieldCheck size={18} className="text-white" />
-              <h3 className="font-serif text-2xl font-light text-white">Verified Certifications</h3>
-            </div>
+        {/* Bottom Half: Research Vectors (Theoretical Frontiers) */}
+        <div className="pt-16">
+          <div className="max-w-2xl mb-12">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-neutral-400 block mb-2">
+              THEORETICAL FRONTIERS
+            </span>
+            <h3 className="font-serif text-3xl font-light text-white leading-snug">
+              Active Research Vectors & Disciplines
+            </h3>
+          </div>
 
-            <div className="space-y-4">
-              {certifications.map((cert, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-                  transition={{ duration: 0.7, delay: 0.3 + i * 0.1 }}
-                  className="border border-white/10 bg-neutral-900/20 p-5 flex items-start justify-between gap-4 hover:border-white/30 transition-colors group"
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="font-mono text-xs text-neutral-500 mt-1">
-                      0{i + 1}
-                    </span>
-                    <div>
-                      <h5 className="font-serif text-base font-light text-white mb-1 group-hover:text-neutral-100 transition-colors">
-                        {cert.title}
-                      </h5>
-                      <p className="text-xs font-mono text-neutral-400">{cert.issuer}</p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] font-mono tracking-widest uppercase px-2 py-0.5 border border-white/15 bg-white/5 text-neutral-400">
-                    VERIFIED
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+          {/* Typographic Research Catalogue */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {researchInterests.map((interest, i) => (
+              <motion.div
+                key={interest}
+                initial={{ opacity: 0, y: 15 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
+                className="border border-white/[0.08] p-5 hover:border-white/30 transition-colors bg-black/40 flex flex-col justify-between min-h-[130px]"
+              >
+                <span className="font-mono text-[11px] text-neutral-400">0{i + 1}</span>
+                <span className="font-serif text-lg font-light text-white leading-tight">
+                  {interest}
+                </span>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
     </section>
   );
 }
-

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { personalInfo } from "../data";
-import { ArrowUp, ArrowUpRight, Check, Copy, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Check, Copy } from "lucide-react";
 import { scrollToTarget } from "../utils/smoothScroll";
 
 export function Contact() {
@@ -10,7 +10,6 @@ export function Contact() {
   const [copied, setCopied] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
 
-  // Live Dhaka local time ticker with safe error handling
   useEffect(() => {
     const updateClock = () => {
       const now = new Date();
@@ -23,8 +22,7 @@ export function Contact() {
           second: "2-digit",
         });
         setCurrentTime(timeStr);
-      } catch (err) {
-        // Fallback to local time string if timezone not recognized
+      } catch {
         setCurrentTime(now.toTimeString().slice(0, 8));
       }
     };
@@ -38,249 +36,146 @@ export function Contact() {
     try {
       navigator.clipboard.writeText(personalInfo.email);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2400);
+      setTimeout(() => setCopied(false), 2200);
     } catch {
       // Fallback
     }
   };
 
-  const words = ["LET'S", "BUILD", "SOMETHING", "MEANINGFUL."];
-
   return (
     <section
       id="contact"
       ref={containerRef}
-      className="relative pt-32 pb-20 px-6 md:px-16 bg-black text-white border-t border-white/10 overflow-hidden"
+      className="relative pt-24 pb-16 px-6 md:px-12 bg-neutral-950 text-white border-t border-white/[0.08]"
     >
-      {/* Background oversized word */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-10 text-[18vw] font-serif font-black text-stroke-white opacity-5 select-none pointer-events-none whitespace-nowrap">
-        COLLABORATE
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Tag */}
-        <div className="flex items-center gap-6 mb-16">
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-400">
-            07 // INITIATE DIALOGUE
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="flex items-baseline justify-between pb-8 mb-16 border-b border-white/[0.08]">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-neutral-400">
+            06 / INITIATE DIALOGUE
           </span>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1 h-px bg-white/20 origin-left"
-          />
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-400">
+            COLLABORATION & RESEARCH INQUIRY
+          </span>
         </div>
 
-        {/* Dramatic Headline: "LET'S BUILD SOMETHING MEANINGFUL." */}
-        <div className="mb-14 overflow-hidden">
-          <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-white leading-[1.05]">
-            {words.map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-3 md:mr-6">
-                <motion.span
-                  initial={{ y: "110%", opacity: 0 }}
-                  animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
-                  transition={{
-                    duration: 0.9,
-                    delay: 0.2 + i * 0.12,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className={`inline-block ${
-                    word === "SOMETHING" ? "italic text-neutral-400 font-light" : ""
-                  }`}
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
-          </h2>
-        </div>
-
-        {/* Subtitle & Availability Status */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="lg:col-span-7"
+        {/* Monumental Editorial Headline */}
+        <div className="mb-16 max-w-5xl">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-[-0.03em] text-white leading-[0.98]"
           >
-            <p className="text-base sm:text-lg text-neutral-300 font-sans leading-relaxed mb-8 max-w-xl">
-              Available for research engineering collaborations, core systems architecture, protocol
-              development, and innovative technical endeavors worldwide.
+            Let's build <span className="italic font-light text-neutral-300">something</span>{" "}
+            meaningful.
+          </motion.h2>
+        </div>
+
+        {/* 2-Column Functional Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-20 border-b border-white/[0.08]">
+          {/* Left Column: Direct Dispatch & Time (7 cols) */}
+          <div className="lg:col-span-7 space-y-8">
+            <p className="text-base sm:text-lg font-sans text-neutral-300 max-w-xl leading-relaxed">
+              Open to research collaborations, core engineering roles, and technical discussions
+              concerning distributed systems, embedded architectures, and intelligent computation.
             </p>
 
-            {/* Live Status Pill */}
-            <div className="inline-flex items-center gap-3 px-4 py-2 border border-white/20 bg-neutral-900/60 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+            {/* Email Dispatch Box */}
+            <div className="border border-white/15 p-6 bg-black/60 max-w-xl space-y-3">
+              <span className="font-mono text-[10px] tracking-[0.2em] text-neutral-400 uppercase block">
+                DIRECT ELECTRONIC MAIL
               </span>
-              <span className="font-mono text-xs text-neutral-300 uppercase tracking-widest">
-                AVAILABLE // CONTRACT & FULL-TIME ROLES 2025–2026
-              </span>
-            </div>
-          </motion.div>
-
-          {/* Timezone & Coordinate card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="lg:col-span-5 border border-white/15 bg-neutral-900/40 p-6 backdrop-blur-sm"
-          >
-            <div className="flex justify-between items-center font-mono text-xs text-neutral-400 mb-4 pb-2 border-b border-white/10">
-              <span>LOCATION & TIMEZONE</span>
-              <span>DHAKA, BANGLADESH</span>
-            </div>
-            <div className="flex items-baseline justify-between">
-              <div>
-                <span className="font-mono text-[10px] text-neutral-500 block uppercase">
-                  LOCAL SYSTEM TIME (UTC+6)
-                </span>
-                <span className="font-mono text-2xl text-white tracking-widest">
-                  {currentTime || "12:00:00"}
-                </span>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  className="font-serif text-xl sm:text-2xl text-white hover:text-neutral-300 transition-colors underline underline-offset-4 decoration-white/20"
+                >
+                  {personalInfo.email}
+                </a>
+                <button
+                  onClick={handleCopyEmail}
+                  className="px-3.5 py-1.5 border border-white/20 hover:border-white font-mono text-xs uppercase tracking-wider text-neutral-300 hover:text-white transition-colors flex items-center gap-1.5"
+                  title="Copy email to clipboard"
+                >
+                  {copied ? (
+                    <>
+                      <Check size={12} className="text-white" />
+                      <span>Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={12} />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
               </div>
-              <span className="px-2 py-1 bg-white/10 text-[10px] font-mono text-neutral-300 uppercase">
-                BST ACTIVE
-              </span>
             </div>
-          </motion.div>
-        </div>
 
-        {/* Interactive Direct Contact Row */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="border-t border-b border-white/15 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-20"
-        >
-          {/* Email Click & Copy */}
-          <div className="flex flex-col gap-2">
-            <span className="font-mono text-xs uppercase tracking-[0.25em] text-neutral-400">
-              DIRECT DISPATCH
-            </span>
-            <div className="flex flex-wrap items-center gap-4">
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="font-serif text-2xl sm:text-3xl md:text-4xl text-white hover:text-neutral-300 transition-colors tracking-tight underline underline-offset-8 decoration-white/30 hover:decoration-white"
-              >
-                {personalInfo.email}
-              </a>
-              <button
-                onClick={handleCopyEmail}
-                className="flex items-center gap-2 px-3.5 py-2 border border-white/20 bg-neutral-900 text-xs font-mono uppercase tracking-widest hover:bg-white hover:text-black transition-all"
-                title="Copy email to clipboard"
-              >
-                {copied ? (
-                  <>
-                    <Check size={13} className="text-green-400" />
-                    <span>COPIED!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy size={13} />
-                    <span>COPY</span>
-                  </>
-                )}
-              </button>
+            {/* System Status & Timezone */}
+            <div className="flex flex-wrap items-baseline gap-6 text-xs font-mono text-neutral-400 uppercase tracking-wider pt-2">
+              <div>
+                <span>LOCAL TIME: </span>
+                <span className="text-white">{currentTime || "12:00:00"} BST (UTC+6)</span>
+              </div>
+              <span>/</span>
+              <div>
+                <span>STATUS: </span>
+                <span className="text-white">AVAILABLE FOR 2026 ENGAGEMENTS</span>
+              </div>
             </div>
           </div>
 
-          {/* Send Email Action Button */}
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-xs font-mono tracking-[0.2em] uppercase font-semibold hover:bg-neutral-200 transition-colors"
-          >
-            <Mail size={15} />
-            <span>SEND EMAIL</span>
-            <ArrowUpRight
-              size={15}
-              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-            />
-          </a>
-        </motion.div>
+          {/* Right Column: Channels & Index (5 cols) */}
+          <div className="lg:col-span-5 space-y-4">
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-neutral-400 block pb-2 border-b border-white/10 mb-4">
+              CHANNELS & NETWORKS
+            </span>
 
-        {/* Social Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-20">
-          <a
-            href={personalInfo.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group border border-white/10 bg-neutral-900/30 p-6 flex items-center justify-between hover:border-white/40 hover:bg-neutral-900/60 transition-all duration-300"
-          >
-            <div className="flex items-center gap-3">
-              <Linkedin size={18} className="text-white" />
-              <div>
-                <span className="font-mono text-xs text-neutral-400 block tracking-widest uppercase">
-                  NETWORK
-                </span>
-                <span className="font-serif text-lg text-white">LinkedIn</span>
-              </div>
-            </div>
-            <ArrowUpRight
-              size={16}
-              className="text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-            />
-          </a>
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-white/10 p-4 flex items-center justify-between hover:border-white hover:bg-white hover:text-black transition-colors group"
+            >
+              <span className="font-mono text-xs tracking-wider uppercase">LinkedIn Network</span>
+              <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
 
-          <a
-            href={personalInfo.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group border border-white/10 bg-neutral-900/30 p-6 flex items-center justify-between hover:border-white/40 hover:bg-neutral-900/60 transition-all duration-300"
-          >
-            <div className="flex items-center gap-3">
-              <Github size={18} className="text-white" />
-              <div>
-                <span className="font-mono text-xs text-neutral-400 block tracking-widest uppercase">
-                  SOURCE CODE
-                </span>
-                <span className="font-serif text-lg text-white">GitHub</span>
-              </div>
-            </div>
-            <ArrowUpRight
-              size={16}
-              className="text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-            />
-          </a>
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-white/10 p-4 flex items-center justify-between hover:border-white hover:bg-white hover:text-black transition-colors group"
+            >
+              <span className="font-mono text-xs tracking-wider uppercase">GitHub Repositories</span>
+              <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
 
-          <a
-            href={personalInfo.cvPath}
-            download="Yeamin_Mahmud_Resin_CV.pdf"
-            className="group border border-white/10 bg-neutral-900/30 p-6 flex items-center justify-between hover:border-white/40 hover:bg-neutral-900/60 transition-all duration-300"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-4 h-4 border border-white flex items-center justify-center font-mono text-[9px] text-white">
-                CV
-              </div>
-              <div>
-                <span className="font-mono text-xs text-neutral-400 block tracking-widest uppercase">
-                  DOSSIER
-                </span>
-                <span className="font-serif text-lg text-white">Curriculum Vitae</span>
-              </div>
-            </div>
-            <ArrowUpRight
-              size={16}
-              className="text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-            />
-          </a>
+            <a
+              href={personalInfo.cvPath}
+              download="Yeamin_Mahmud_Resin_CV.pdf"
+              className="border border-white/10 p-4 flex items-center justify-between hover:border-white hover:bg-white hover:text-black transition-colors group"
+            >
+              <span className="font-mono text-xs tracking-wider uppercase">Curriculum Vitae (PDF)</span>
+              <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
         </div>
 
-        {/* Footer Area with Back to Top */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 border-t border-white/10 text-xs font-mono text-neutral-500">
+        {/* Colophon & Return to Top */}
+        <div className="pt-8 flex flex-col sm:flex-row items-baseline justify-between gap-4 text-xs font-mono text-neutral-400 tracking-wider">
           <div>
-            © {new Date().getFullYear()} YEAMIN MAHMUD RESIN. ENGINEERED WITH MATHEMATICAL RIGOR.
+            © {new Date().getFullYear()} YEAMIN MAHMUD RESIN · MONOGRAPH EDITION
           </div>
 
           <button
             onClick={() => scrollToTarget(0)}
-            className="group flex items-center gap-2 text-neutral-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors cursor-pointer"
           >
-            <span className="tracking-widest uppercase">RETURN TO TOP</span>
-            <div className="w-6 h-6 border border-white/20 rounded-full flex items-center justify-center group-hover:border-white group-hover:-translate-y-1 transition-all">
-              <ArrowUp size={12} />
-            </div>
+            <span>RETURN TO SUMMIT</span>
+            <ArrowUp size={12} />
           </button>
         </div>
       </div>

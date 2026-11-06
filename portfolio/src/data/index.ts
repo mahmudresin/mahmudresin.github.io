@@ -1,3 +1,7 @@
+const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
 export const personalInfo = {
   name: "Yeamin Mahmud Resin",
   title: "Research Engineer",
@@ -8,8 +12,8 @@ export const personalInfo = {
   email: "yeaminmahmudres@outlook.com",
   linkedin: "https://www.linkedin.com/in/yeamin-mahmud-19a726311/",
   github: "https://github.com/mahmudresin",
-  cvPath: "/cv.pdf",
-  profileImage: "/yeamin.png",
+  cvPath: `${baseUrl}cv.pdf`,
+  profileImage: `${baseUrl}yeamin.png`,
 };
 
 export const aboutText = `I am a Computer Science and Engineering graduate with a strong foundation in systems-level programming, software development, and applied research. Currently working as a Research Engineer at TOI DLT Foundation, where I focus on blockchain-based infrastructure development, codebase analysis, and protocol research.

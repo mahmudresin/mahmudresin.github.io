@@ -21,37 +21,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Detect project root directory
-        id: detect
-        run: |
-          if [ -f "portfolio/package.json" ]; then
-            echo "dir=portfolio" >> $GITHUB_OUTPUT
-            echo "dist=portfolio/dist" >> $GITHUB_OUTPUT
-          else
-            echo "dir=." >> $GITHUB_OUTPUT
-            echo "dist=dist" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Setup Node.js
+      - name: Setup Node.js 24
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
+          cache: "npm"
+          cache-dependency-path: portfolio/package-lock.json
 
       - name: Install dependencies
-        working-directory: ${{ steps.detect.outputs.dir }}
-        run: npm install
+        working-directory: portfolio
+        run: npm ci --prefer-offline || npm install
 
       - name: Build production bundle
-        working-directory: ${{ steps.detect.outputs.dir }}
+        working-directory: portfolio
         run: npm run build
 
-      - name: Setup Pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload Pages Artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ steps.detect.outputs.dist }}
+          path: portfolio/dist
 
   deploy:
     environment:
@@ -63,4 +54,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yeamin Mahmud Resin — Research Engineer</title>
+  <script>
+    // Seamless routing to the portfolio app
+    var path = window.location.pathname;
+    if (!path.includes('/portfolio/')) {
+      var target = path.endsWith('/') ? path + 'portfolio/' : path + '/portfolio/';
+      window.location.replace(target + window.location.search + window.location.hash);
+    }
+  </script>
+</head>
+<body style="background:#050505;color:#ffffff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+  <p style="letter-spacing:0.2em;font-size:12px;text-transform:uppercase;color:#a3a3a3;">
+    Initializing Portfolio...
+  </p>
+</body>
+</html>
+

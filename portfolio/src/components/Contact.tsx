@@ -10,19 +10,23 @@ export function Contact() {
   const [copied, setCopied] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
 
-  // Live Dhaka local time ticker
+  // Live Dhaka local time ticker with safe error handling
   useEffect(() => {
     const updateClock = () => {
       const now = new Date();
-      // Format to Dhaka timezone UTC+6
-      const timeStr = now.toLocaleTimeString("en-US", {
-        timeZone: "Asia/Dhaka",
-        hour12: false,
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      });
-      setCurrentTime(timeStr);
+      try {
+        const timeStr = now.toLocaleTimeString("en-US", {
+          timeZone: "Asia/Dhaka",
+          hour12: false,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+        setCurrentTime(timeStr);
+      } catch (err) {
+        // Fallback to local time string if timezone not recognized
+        setCurrentTime(now.toTimeString().slice(0, 8));
+      }
     };
 
     updateClock();
@@ -31,9 +35,13 @@ export function Contact() {
   }, []);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2400);
+    try {
+      navigator.clipboard.writeText(personalInfo.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2400);
+    } catch {
+      // Fallback
+    }
   };
 
   const words = ["LET'S", "BUILD", "SOMETHING", "MEANINGFUL."];
@@ -279,4 +287,3 @@ export function Contact() {
     </section>
   );
 }
-

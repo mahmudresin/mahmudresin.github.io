@@ -1,6 +1,17 @@
-const baseUrl = import.meta.env.BASE_URL.endsWith('/')
-  ? import.meta.env.BASE_URL
-  : `${import.meta.env.BASE_URL}/`;
+const getBaseUrl = () => {
+  try {
+    if (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.BASE_URL) {
+      return import.meta.env.BASE_URL.endsWith("/")
+        ? import.meta.env.BASE_URL
+        : `${import.meta.env.BASE_URL}/`;
+    }
+  } catch (e) {
+    // Fallback
+  }
+  return "./";
+};
+
+const baseUrl = getBaseUrl();
 
 export const personalInfo = {
   name: "Yeamin Mahmud Resin",
@@ -157,4 +168,3 @@ export const researchInterests = [
   "Computer Networks",
   "Cybersecurity & Digital Forensics",
 ];
-

@@ -65,8 +65,8 @@ export function Navbar({ ready }: { ready: boolean }) {
       {/* Floating Navbar */}
       <motion.header
         initial={{ y: -80, opacity: 0 }}
-        animate={ready ? { y: 0, opacity: 1 } : { y: -80, opacity: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? "py-3 bg-black/80 backdrop-blur-md border-b border-white/10"

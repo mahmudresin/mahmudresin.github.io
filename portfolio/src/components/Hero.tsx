@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowDown, ChevronRight, Download, Github, Linkedin, Terminal } from "lucide-react";
 import { personalInfo } from "../data";
@@ -30,28 +30,6 @@ export function Hero({ ready }: { ready: boolean }) {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  // Staggered word variant
-  const wordVariants = {
-    hidden: { y: "115%", opacity: 0 },
-    visible: (i: number) => ({
-      y: "0%",
-      opacity: 1,
-      transition: {
-        duration: 0.9,
-        ease: [0.16, 1, 0.3, 1],
-        delay: ready ? 0.35 + i * 0.15 : 999,
-      },
-    }),
-  };
-
-  const lineVariants = {
-    hidden: { scaleX: 0 },
-    visible: {
-      scaleX: 1,
-      transition: { duration: 0.8, delay: ready ? 0.2 : 999, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
-
   return (
     <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 pt-28 pb-16 overflow-hidden bg-neutral-950 text-white selection:bg-white selection:text-black">
       {/* Background Architectural Grid */}
@@ -79,15 +57,15 @@ export function Hero({ ready }: { ready: boolean }) {
         {/* Eyebrow with Animated Hairline & Pulse */}
         <div className="flex items-center gap-4 mb-8">
           <motion.div
-            initial="hidden"
-            animate={ready ? "visible" : "hidden"}
-            variants={lineVariants}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="w-10 h-px bg-white origin-left"
           />
           <motion.div
             initial={{ opacity: 0, x: -12 }}
-            animate={ready ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
-            transition={{ duration: 0.6, delay: ready ? 0.3 : 0 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="flex items-center gap-2.5"
           >
             <span className="relative flex h-2 w-2">
@@ -104,10 +82,9 @@ export function Hero({ ready }: { ready: boolean }) {
         <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-normal leading-[0.95] tracking-tight text-white mb-8">
           <div className="overflow-hidden">
             <motion.span
-              custom={0}
-              initial="hidden"
-              animate={ready ? "visible" : "hidden"}
-              variants={wordVariants}
+              initial={{ y: "115%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block"
             >
               Yeamin
@@ -115,10 +92,9 @@ export function Hero({ ready }: { ready: boolean }) {
           </div>
           <div className="overflow-hidden">
             <motion.span
-              custom={1}
-              initial="hidden"
-              animate={ready ? "visible" : "hidden"}
-              variants={wordVariants}
+              initial={{ y: "115%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block italic text-neutral-400 font-light"
             >
               Mahmud
@@ -126,10 +102,9 @@ export function Hero({ ready }: { ready: boolean }) {
           </div>
           <div className="overflow-hidden">
             <motion.span
-              custom={2}
-              initial="hidden"
-              animate={ready ? "visible" : "hidden"}
-              variants={wordVariants}
+              initial={{ y: "115%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block text-white"
             >
               Resin
@@ -140,9 +115,9 @@ export function Hero({ ready }: { ready: boolean }) {
         {/* Headline & Mission */}
         <div className="overflow-hidden mb-6 max-w-3xl">
           <motion.p
-            initial={{ opacity: 0, y: 28 }}
-            animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-            transition={{ duration: 0.8, delay: ready ? 0.75 : 0, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="text-xl sm:text-2xl md:text-3xl font-serif text-neutral-200 leading-snug"
           >
             Building Intelligent Systems.{" "}
@@ -153,8 +128,8 @@ export function Hero({ ready }: { ready: boolean }) {
         {/* Architectural Bio description */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: ready ? 0.9 : 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.85 }}
           className="text-sm md:text-base text-neutral-400 font-sans max-w-2xl leading-relaxed mb-12"
         >
           Specializing in C++, blockchain infrastructure protocols, embedded IoT architectures, and
@@ -162,14 +137,13 @@ export function Hero({ ready }: { ready: boolean }) {
           uncompromising reliability.
         </motion.p>
 
-        {/* Staggered Action CTAs */}
+        {/* Action CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: ready ? 1.05 : 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
           className="flex flex-wrap items-center gap-5 mb-16"
         >
-          {/* Primary CTA button with magnetic hover feel */}
           <button
             onClick={() => scrollToTarget("#projects", -50)}
             className="group relative inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-xs font-mono tracking-[0.2em] uppercase font-semibold overflow-hidden hover:bg-neutral-200 transition-all duration-300"
@@ -181,7 +155,6 @@ export function Hero({ ready }: { ready: boolean }) {
             />
           </button>
 
-          {/* Secondary CV Download */}
           <a
             href={personalInfo.cvPath}
             download="Yeamin_Mahmud_Resin_CV.pdf"
@@ -191,7 +164,6 @@ export function Hero({ ready }: { ready: boolean }) {
             <span>CURRICULUM VITAE</span>
           </a>
 
-          {/* Interactive Terminal Quick Link */}
           <button
             onClick={() => scrollToTarget("#experience", -50)}
             className="hidden sm:inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors tracking-widest uppercase px-4 py-3"
@@ -204,8 +176,8 @@ export function Hero({ ready }: { ready: boolean }) {
         {/* Social Links & Technical Coordinates */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={ready ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: ready ? 1.2 : 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.15 }}
           className="flex flex-wrap items-center justify-between border-t border-white/10 pt-8 gap-6 text-xs font-mono"
         >
           <div className="flex items-center gap-8">
@@ -244,8 +216,8 @@ export function Hero({ ready }: { ready: boolean }) {
       {/* Floating Understated Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={ready ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.8, delay: ready ? 1.4 : 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.3 }}
         onClick={() => scrollToTarget("#about", -60)}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group select-none"
       >
@@ -263,4 +235,3 @@ export function Hero({ ready }: { ready: boolean }) {
     </section>
   );
 }
-
